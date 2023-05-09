@@ -1,9 +1,7 @@
 package modelLayer;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import entity.Med_Product;
-import token.Token;
 import utils.ClassFactory;
 import DBlayer.IDBController;
 
@@ -115,22 +113,5 @@ public class Model implements IModel{
 	public void injectIDBController(IDBController controller) {
 		if(this.IDBController == null)
 			this.IDBController = controller;
-	}
-
-
-	@Override
-	public String createToken(String login) throws Exception {
-		return Token.create(login);
-	}
-
-
-	@Override
-	public boolean checkToken(String login, String token) {
-		try {
-			return Token.check(login, token);
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-			return false;
-		}
 	}
 }

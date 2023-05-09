@@ -17,6 +17,7 @@ import jakarta.inject.Inject;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import modelLayer.IModel;
+import token.IToken;
 
 @Path("/")
 public class Service {
@@ -25,7 +26,9 @@ public class Service {
 	
 	@Inject @Built
 	IModel model;
-	
+
+	@Inject
+	IToken tokenService;
 
 	@POST
  	@Path("/auth")
@@ -40,7 +43,7 @@ public class Service {
 		boolean res = model.checkUserData(logs.get(0), logs.get(1));
 		
 		if(res) {
-			return Response.ok(jsonb.toJson(model.createToken(logs.get(0)))).build();
+			return Response.ok(jsonb.toJson(tokenService.createToken(logs.get(0)))).build();
 		}
 		
 		return Response.status(Response.Status.UNAUTHORIZED).build();
@@ -64,7 +67,7 @@ public class Service {
 		boolean res = model.registrateNewUser(logs.get(0), logs.get(1));
 		
 		if(res) {
-			return Response.ok(jsonb.toJson(model.createToken(logs.get(0)))).build();
+			return Response.ok(jsonb.toJson(tokenService.createToken(logs.get(0)))).build();
 		}
 		return Response.status(Response.Status.UNAUTHORIZED).build();
  	}

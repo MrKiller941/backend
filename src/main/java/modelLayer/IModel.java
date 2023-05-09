@@ -12,6 +12,4 @@ public interface IModel {
 	boolean delProduct(String name);
 	ArrayList<Med_Product> 	getFullCatalog();
 	void injectIDBController(IDBController repository);
-	String createToken(String login) throws Exception;
-    boolean checkToken(String login, String token);
 }
